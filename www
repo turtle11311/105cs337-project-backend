@@ -4,12 +4,12 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('./app');
 const debug = require('debug')('105cs337-project-backend:server');
 const http = require('http');
 
 
-const config = require('../config');
+const config = require('./config');
 
 /**
  * Get port from environment and store in Express.
