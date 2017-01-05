@@ -23,8 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('node-compass')({mode: 'expanded'}));
-
-// set static file directory
+// set stati
 app.use(express.static(path.join(config.rootDir, 'public')));
 
 app.use('/', index);
