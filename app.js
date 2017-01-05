@@ -14,9 +14,9 @@ const config = require('./config');
 let app = express();
 
 // ensure repo folder is exist
-// fs.ensureDir(path.join(config.rootDir, 'Repositories'), (err) => {
-//   err != null && console.log(err);
-// });
+fs.ensureDir(path.join(config.rootDir, 'Repositories'), (err) => {
+  err != null && console.log(err);
+});
 
 // view engine setup
 app.set('views', path.join(config.rootDir, 'views'));
