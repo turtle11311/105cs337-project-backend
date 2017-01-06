@@ -7,7 +7,7 @@ const config = require('../../config');
 
 let router = express.Router();
 
-router.post('/:initrepo/init', (req, res) => {
+router.post('/:initrepo([-a-zA-Z0-9_]+)/init', (req, res) => {
   let isBare = req.body.isbare;
   let repoName = req.params.initrepo;
   let repoPath = path.join(config.rootDir, 'Repositories', repoName);
@@ -50,11 +50,11 @@ router.param('repo', (req, res, next, repo) => {
   });
 });
 
-router.post('/:repo/add', (req, res) => {
+router.post('/:repo([-a-zA-Z0-9_]+)/add', (req, res) => {
   // do some thing
 });
 
-router.post('/:repo/commit', (req, res) => {
+router.post('/:repo([-a-zA-Z0-9_]+)/commit', (req, res) => {
   // do some thing
 });
 
