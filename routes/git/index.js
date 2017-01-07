@@ -31,7 +31,6 @@ router.post('/clone/:reponame([-a-zA-Z0-9_]+)', (req, res) => {
     res.status(406).send(`${error}`);
   })
   .then((repo) => {
-    console.log(`${repo}`);
     res.send(`clone ${req.params.reponame} success`);
   });
 });
