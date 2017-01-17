@@ -4,5 +4,6 @@ typings/
 obj/
 .vs/
 bin/
+npm-debug.log
 *.njsproj
 *.sln
