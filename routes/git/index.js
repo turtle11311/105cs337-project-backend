@@ -2,6 +2,7 @@
 const express = require('express');
 const nodegit = require('nodegit');
 const path = require('path');
+const _ = require('lodash');
 
 const config = require('../../config');
 
@@ -36,21 +37,39 @@ router.post('/clone/:reponame([-a-zA-Z0-9_]+)', (req, res) => {
 });
 
 router.param('repo', (req, res, next, repo) => {
-  console.log('repo');
   let repoPath = path.join(config.rootDir, 'Repositories', repo);
-  nodegit.Repository.open(repoPath)
+  req.repoPromise = nodegit.Repository.open(repoPath)
   .catch((error) => {
     console.log(error);
     res.status(406).send(`${error}`);
-  })
-  .then((repo) => {
+  }).then((repo) => {
     req.repo = repo;
     next();
   });
 });
 
 router.post('/:repo([-a-zA-Z0-9_]+)/add', (req, res) => {
-  // do some thing
+  let files = req.body.files;
+  console.log('here');
+  if (!files || !_.isArray(files)) {
+    res.status(406).send('files must be Array type');
+    return;
+  }
+
+  req.repoPromise.then(() => {
+    return req.repo.refreshIndex();
+  }).then((indexResult) => {
+    req.repoIndex = indexResult;
+  }).then(() => {
+    return _(files).forEach(fname => req.repoIndex.addByPath(fname));
+  }).then((value) => {
+    console.log(value);
+    return req.repoIndex.write();
+  }).done(() => {
+    return req.repoIndex.writeTree();
+  });
+
+  res.send(`Add ${files} into Repo ${req.params.repo}`);
 });
 
 router.post('/:repo([-a-zA-Z0-9_]+)/commit', (req, res) => {
