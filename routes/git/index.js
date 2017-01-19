@@ -14,42 +14,42 @@ router.post('/:initrepo([-a-zA-Z0-9_]+)/init', (req, res) => {
   let repoPath = path.join(config.rootDir, 'Repositories', repoName);
 
   nodegit.Repository
-  .init(repoPath, isBare === undefined ? 0 : parseInt(isBare))
-  .catch((error) => {
-    console.log(error);
-    res.status(406).send(`${error}`);
-  })
-  .then(() => {
-    res.send(`init ${repoName} success`);
-  });
+    .init(repoPath, isBare === undefined ? 0 : parseInt(isBare))
+    .catch((error) => {
+      console.log(error);
+      res.status(406).send(`${error}`);
+    })
+    .then(() => {
+      res.send(`init ${repoName} success`);
+    });
 });
 
 router.post('/clone/:reponame([-a-zA-Z0-9_]+)', (req, res) => {
   nodegit.Clone(req.body.url,
-                path.join(config.rootDir, 'Repositories', req.params.reponame))
-  .catch((error) => {
-    console.log(error);
-    res.status(406).send(`${error}`);
-  })
-  .then((repo) => {
-    res.send(`clone ${req.params.reponame} success`);
-  });
+    path.join(config.rootDir, 'Repositories', req.params.reponame))
+    .catch((error) => {
+      console.log(error);
+      res.status(406).send(`${error}`);
+    })
+    .then((repo) => {
+      res.send(`clone ${req.params.reponame} success`);
+    });
 });
 
 router.param('repo', (req, res, next, repo) => {
   let repoPath = path.join(config.rootDir, 'Repositories', repo);
   req.repoPromise = nodegit.Repository.open(repoPath)
-  .catch((error) => {
-    console.log(error);
-    res.status(406).send(`${error}`);
-  }).then((repo) => {
-    req.repo = repo;
-  }).then(() => {
-    return req.repo.refreshIndex();
-  }).then((indexResult) => {
-    req.repoIndex = indexResult;
-    next();
-  });
+    .catch((error) => {
+      console.log(error);
+      res.status(406).send(`${error}`);
+    }).then((repo) => {
+      req.repo = repo;
+    }).then(() => {
+      return req.repo.refreshIndex();
+    }).then((indexResult) => {
+      req.repoIndex = indexResult;
+      next();
+    });
 });
 
 router.post('/:repo([-a-zA-Z0-9_]+)/add', (req, res) => {
