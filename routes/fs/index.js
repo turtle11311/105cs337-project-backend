@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const path = require('path');
+const debug = require('debug')('apis:fs')
 
 const folderTraveler = require('./folderTraveler');
 const config = require('../../config');
@@ -17,7 +18,7 @@ router.post('/:repo/list', (req, res) => {
     let result = folderTraveler(req.repoPath);
     res.send(result);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.sendStatus(406);
   }
 });
