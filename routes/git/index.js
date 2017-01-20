@@ -44,11 +44,14 @@ router.param('repo', (req, res, next, repo) => {
     .catch((err) => {
       console.error(err);
       res.status(406).send(`${err}`);
-    }).then((repo) => {
+    })
+    .then((repo) => {
       req.repo = repo;
-    }).then(() => {
+    })
+    .then(() => {
       return req.repo.refreshIndex();
-    }).then((indexResult) => {
+    })
+    .then((indexResult) => {
       req.repoIndex = indexResult;
       next();
     });
@@ -70,11 +73,14 @@ router.post('/:repo([-a-zA-Z0-9_]+)/add', (req, res) => {
     .catch((err) => {
       hasError = true;
       console.log(err);
-    }).then(() => {
+    })
+    .then(() => {
       return req.repoIndex.write();
-    }).then(() => {
+    })
+    .then(() => {
       return req.repoIndex.writeTree();
-    }).done(() => {
+    })
+    .done(() => {
       if (hasError)
         res.status(406).send('Add fail');
       else
