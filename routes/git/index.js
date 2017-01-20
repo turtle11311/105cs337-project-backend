@@ -99,7 +99,7 @@ router.post('/:repo([-a-zA-Z0-9_]+)/commit', (req, res) => {
       let author = nodegit.Signature.create("Scott Chacon",
         "schacon@gmail.com", Date.now(), 60);
       let committer = nodegit.Signature.create("Scott A Chacon",
-        "scott@github.com", 987654321, 90);
+        "scott@github.com", Date.now(), 90);
 
       return req.repo.createCommit("HEAD", author, committer, massage, req.repoOid, [parent]);
     })
