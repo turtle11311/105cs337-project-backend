@@ -11,6 +11,7 @@
     "uuid": "registry:dt/uuid#3.3.0+20160728152600"
   },
   "dependencies": {
+    "fs-extra": "registry:dt/fs-extra#0.0.0+20170109012028",
     "lodash": "registry:npm/lodash#4.0.0+20161015015725"
   }
 }

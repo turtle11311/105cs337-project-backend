@@ -6,3 +6,4 @@ obj/
 bin/
 npm-debug.log
 *.sln
+*.njsproj
