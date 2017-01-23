@@ -10,6 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.21.0/jquery.fancytree.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.21.0/skin-win8/ui.fancytree.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.customSelect/0.5.1/jquery.customSelect.js"></script>
   <script type="text/javascript">
     function init() {
       $(function () {
@@ -36,30 +37,31 @@
         <div id="tree"></div>
       </div>
       <div id="editor"></div>
-      <div class="editor">
-        editor
-        <form>
+      <div class="editor_option">
+        Please select:
           <select id="theme" onchange="loadtheme()">
           </select>
-        </form>
-        <form>
           <select id="language" onchange="loadtheme()"></select>
-        </form>
       </div>
     </div>
 
   </div>
   <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
   <script>
-    var n;
+
+    
     var theme = ['ambiance', 'chaos', 'chrome', 'clouds', 'clouds_midnight', 'cobalt', 'crimson_editor', 'dawn', 'dreamweaver', 'eclipse', 'github', 'idle_fingers', 'iplastic', 'katzenmilch', 'kr_theme', 'kuroir', 'merbivore', 'merbivore_soft', 'mono_industrial', 'monokai', 'pastel_on_dark', 'solarized_dark', 'solarized_light', 'sqlserver', 'terminal', 'textmate', 'tomorrow', 'tomorrow_night', 'tomorrow_night_blue', 'tomorrow_night_bright', 'tomorrow_night_eighties', 'twilight', 'vibrant_ink', 'xcode'];
     var language = ['c_cpp', 'html', 'javascript', 'java'];
+    $('select#theme').append($("<option></option>").attr("value", 0).text("Choose a theme"));
     for (var i = 0; i < theme.length; i++) {
       $('select#theme').append($("<option></option>").attr("value", theme[i]).text(theme[i]));
     }
+    $('select#language').append($("<option></option>").attr("value", 0).text("Choose a language"));
     for (var i = 0; i < language.length; i++) {
       $('select#language').append($("<option></option>").attr("value", language[i]).text(language[i]));
     }
+    var $th = $('#theme').customSelect();
+    var $la = $('#language').customSelect();
     function loadtheme() {
       console.log('change');
       var editor = ace.edit("editor");
