@@ -3,18 +3,18 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-let folderTraveler = (dir) => {
+let folderTraveler = (repopath, dir) => {
   let result = new Array();
-  let files = fs.readdirSync(dir);
+  let files = fs.readdirSync(path.join(repopath, dir));
   for (let file of files) {
     if (file == '.git') continue;
-    let fullpath = path.join(dir, file);
-    if (fs.statSync(fullpath).isDirectory()) {
+    let fpath = path.join(dir, file);
+    if (fs.statSync(path.join(repopath, fpath)).isDirectory()) {
       result.push({
-        title: file, key: file, folder: true, children: folderTraveler(fullpath)
+        title: file, key: fpath, folder: true, children: folderTraveler(repopath, fpath)
       });
     } else {
-      result.push({ title: file, key: file});
+      result.push({ title: file, key: fpath});
     }
   }
   return result;
