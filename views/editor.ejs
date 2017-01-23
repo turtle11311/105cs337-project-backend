@@ -38,15 +38,34 @@
       <div id="editor"></div>
       <div class="editor">
         editor
+        <form>
+          <select id="theme" onchange="loadtheme()">
+          </select>
+        </form>
+        <form>
+          <select id="language" onchange="loadtheme()"></select>
+        </form>
       </div>
     </div>
 
   </div>
   <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
   <script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/c_cpp");
+    var n;
+    var theme = ['ambiance', 'chaos', 'chrome', 'clouds', 'clouds_midnight', 'cobalt', 'crimson_editor', 'dawn', 'dreamweaver', 'eclipse', 'github', 'idle_fingers', 'iplastic', 'katzenmilch', 'kr_theme', 'kuroir', 'merbivore', 'merbivore_soft', 'mono_industrial', 'monokai', 'pastel_on_dark', 'solarized_dark', 'solarized_light', 'sqlserver', 'terminal', 'textmate', 'tomorrow', 'tomorrow_night', 'tomorrow_night_blue', 'tomorrow_night_bright', 'tomorrow_night_eighties', 'twilight', 'vibrant_ink', 'xcode'];
+    var language = ['c_cpp', 'html', 'javascript', 'java'];
+    for (var i = 0; i < theme.length; i++) {
+      $('select#theme').append($("<option></option>").attr("value", theme[i]).text(theme[i]));
+    }
+    for (var i = 0; i < language.length; i++) {
+      $('select#language').append($("<option></option>").attr("value", language[i]).text(language[i]));
+    }
+    function loadtheme() {
+      console.log('change');
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/" + $('select#theme').find(":selected").val());
+      editor.session.setMode("ace/mode/" + $('select#language').find(":selected").val());
+    }
   </script>
 
 </body>
