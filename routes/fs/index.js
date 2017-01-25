@@ -14,7 +14,7 @@ router.param('repo', (req, res, next, repo) => {
   next();
 });
 
-router.get('/:repo/list', (req, res) => {
+router.get('/ls/:repo', (req, res) => {
   try {
     let result = folderTraveler(req.repoPath, './');
     res.send(result);
@@ -24,7 +24,7 @@ router.get('/:repo/list', (req, res) => {
   }
 });
 
-router.get('/:repo/:filepath([-a-zA-Z0-9_./]+)', (req, res) => {
+router.get('/get/:repo/:filepath([-a-zA-Z0-9_./]+)', (req, res) => {
   fs.readFile(path.join(req.repoPath, req.params.filepath), (err, content) => {
     if (err) {
       res.sendStatus(406);

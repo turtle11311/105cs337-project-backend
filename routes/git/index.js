@@ -13,7 +13,7 @@ const commit = require('./commit');
 
 let router = express.Router();
 
-router.post('/:initrepo([-a-zA-Z0-9_.]+)/init', (req, res) => {
+router.post('/init/:initrepo([-a-zA-Z0-9_.]+)', (req, res) => {
   const repoName = req.params.initrepo;
   const repoPath = path.join(config.rootDir, 'Repositories', repoName);
   let repository;
@@ -25,7 +25,7 @@ router.post('/:initrepo([-a-zA-Z0-9_.]+)/init', (req, res) => {
   });
 });
 
-router.post('/clone/:reponame([-a-zA-Z0-9_.]+)', (req, res) => {
+router.post('/cloneto/:reponame([-a-zA-Z0-9_.]+)', (req, res) => {
   nodegit.Clone(req.body.url,
     path.join(config.rootDir, 'Repositories', req.params.reponame))
     .catch((err) => {
@@ -57,6 +57,6 @@ router.param('repo', (req, res, next, repo) => {
     });
 });
 
-router.post('/:repo([-a-zA-Z0-9_.]+)/commit', [newSignature, add, commit]);
+router.post('/commit/:repo([-a-zA-Z0-9_.]+)', [newSignature, add, commit]);
 
 module.exports = router;
