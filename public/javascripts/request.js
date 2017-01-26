@@ -10,3 +10,15 @@
     dataType: 'json'
   });
 }
+
+function save(){
+  var content = ace.edit('editor').getValue();
+  console.log(content);
+  $.ajax({
+    method: 'PUT',
+    url: `/apis/fs/${repo}/${nowFile}`,
+    contentType: 'application/json',
+    data: JSON.stringify({ content: content }),
+    dataType: 'json'
+  });
+}

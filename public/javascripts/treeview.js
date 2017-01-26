@@ -1,5 +1,4 @@
-﻿var ext_map = [{name: 'javascript', ext: ['js']}, {name:'json', ext:['json']}, {name: 'c_cpp', ext: ['c', 'cc', 'cpp', 'h', 'hpp']}, {name: 'python', ext: ['py']}, {name: 'html', ext: ['html', 'htm']}, {name: 'coffee', ext:['coffee']}, {name: 'typescript', ext:['ts']}, {name: 'markdown', ext:['md']}, {name: 'scss', ext: ['scss']}, {name:'sass', ext: ['sass']}, {name: 'ejs', ext: ['ejs']}];
-var filetype = (filename) => {
+﻿var filetype = (filename) => {
   var ext = filename.split('.').pop();
   var res = ext_map.find((elem) => {
     if (elem.ext.includes(ext))
@@ -22,8 +21,9 @@ $(() => {
       if (node.folder) return;
       $.ajax({
         method: 'GET',
-        url: `/apis/fs/get/${repo}/${node.key}`,
+        url: `/apis/fs/${repo}/${node.key}`,
         success: (data, textStatus, jqXHR) => {
+          nowFile = node.key;
           var editor = ace.edit('editor');
           editor.$blockScrolling = Infinity;
           editor.setValue(data);
