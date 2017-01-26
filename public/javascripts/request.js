@@ -22,3 +22,16 @@ function save(){
     dataType: 'json'
   });
 }
+
+function remove() {
+  var selNodes = $("#tree").fancytree("getTree").getSelectedNodes();
+  selNodes.forEach((node) => {
+    $.ajax({
+      method: 'DELETE',
+      url: `/apis/fs/${repo}/${node.key}`,
+      success: (data, status, XHR) => {
+        node.remove();
+      }
+    });
+  });
+}
