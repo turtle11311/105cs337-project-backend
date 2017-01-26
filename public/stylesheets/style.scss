@@ -1,6 +1,7 @@
 
 div.con_code {
   width: 100%;
+  overflow: hidden;
 }
 
 div.function {
@@ -17,6 +18,7 @@ div#editor {
   width: 85%;
   height: 620px;
   float: right;
+  overflow: hidden;
 }
 
 div.treeView {
@@ -35,10 +37,33 @@ div.editor_option {
   bottom:640px;
   float: right;
 }
-select{
-
-
+.treeView::-webkit-scrollbar{
+	width: 8px;
+	height: 8px;
 }
+
+/* ?置???的滑? */
+.treeView::-webkit-scrollbar-track {
+  	background-color: #ddd;
+}
+
+/* 滑? */
+.treeView::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 4px;
+}
+
+ /* 滑???的?听按? */
+.treeView::-webkit-scrollbar-button {
+	background-color: #888;
+	display: none;
+}
+
+/* ?向???和?向???相交?尖角 */
+.treeView::-webkit-scrollbar-corner {
+	background-color: black;
+} 
+
 span.customSelect { 
     font:12px sans-serif;
     background:#fff url(http://i48.tinypic.com/2u7rpec.png) right center no-repeat;
