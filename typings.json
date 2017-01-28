@@ -2,6 +2,7 @@
   "globalDependencies": {
     "cookie": "registry:dt/cookie#0.1.2+20160510002910",
     "http-errors": "registry:dt/http-errors#1.5.0+20161228001551",
+    "jquery": "registry:dt/jquery#1.10.0+20170104155652",
     "jsbn": "registry:dt/jsbn#1.2.0+20160510002910",
     "klaw": "registry:dt/klaw#1.3.0+20161005184000",
     "node": "registry:dt/node#6.0.0+20170109183608",
