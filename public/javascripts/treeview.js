@@ -27,10 +27,9 @@ function loadTreeview() {
           success: (data, textStatus, jqXHR) => {
             nowFile = node.key;
             var editor = ace.edit('editor');
+            editor.setSession(new ace.EditSession(data));
             editor.$blockScrolling = Infinity;
-            editor.setValue(data);
-            editor.clearSelection();
-            editor.session.setMode(`ace/mode/${filetype(node.key)}`);
+            editor.getSession().setMode(`ace/mode/${filetype(node.key)}`);
           }
         });
       }
