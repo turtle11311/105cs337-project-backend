@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const nodegit = require('nodegit');
+const ch = require('child_process');
 const path = require('path');
 const debug = require('debug')('apis:git');
 
@@ -16,8 +17,6 @@ let router = express.Router();
 router.post('/init/:initrepo([-a-zA-Z0-9_.]+)', (req, res) => {
   const repoName = req.params.initrepo;
   const repoPath = path.join(config.rootDir, 'Repositories', repoName);
-  let repository;
-  let index;
 
   nodegit.Repository.init(repoPath, 0)
   .done(() => {
@@ -58,5 +57,12 @@ router.param('repo', (req, res, next, repo) => {
 });
 
 router.post('/commit/:repo([-a-zA-Z0-9_.]+)', [newSignature, add, commit]);
+
+router.get('/diff/:repo([-a-zA-Z0-9_.]+)/:filepath([-a-zA-Z0-9_./]+)', (req, res) => {
+  var diff = ch.execSync(`git diff master~ --word-diff -- ${req.params.filepath}`);
+  diff = diff.toString();
+  console.log(diff);
+  res.send(diff);
+});
 
 module.exports = router;

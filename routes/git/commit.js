@@ -26,4 +26,4 @@ module.exports = (req, res, next) => {
     debug(`New Commit: ${commitID} with massage ${req.body.massage}`);
     res.send(`New Commit: ${commitID} with massage ${req.body.massage}`);
   });
-}
+};
