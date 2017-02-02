@@ -1,14 +1,24 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
-  <title><%= title %></title>
-  <link type="text/css" rel="stylesheet" href="/stylesheets/style.css">
+  <title>
+    <%= title %>
+  </title>
+  <!--jQuery-->
   <script src="/bower/jquery/dist/jquery.min.js"></script>
   <script src="/bower/jquery-ui/jquery-ui.min.js"></script>
   <script src="/bower/jquery.fancytree/dist/jquery.fancytree.min.js"></script>
   <link href="/bower/jquery.fancytree/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.customSelect/0.5.1/jquery.customSelect.js"></script>
+
+  <!--Bootstrap-->
+  <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap-theme.min.css">
+  <script src="/bower/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="/bower/bootbox.js/bootbox.js"></script>
   <script src="/javascripts/support-language.js"></script>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/style.css">
   <script type="text/javascript">
     var repo = 'miner_backend';
     var nowFile = '';
@@ -17,9 +27,14 @@
 </head>
 
 <body onload="loadTreeview()">
-  <div class="container">
+  <div class="main">
     <div class="function">
-      <button onclick="save()">save</button>
+      <button type="button" class="btn btn-default" onclick="init()">Init Repository</button>
+      <button type="button" class="btn btn-default" onclick="save()">Save</button>
+      <button type="button" class="btn btn-default" onclick="remove()">Delete</button>
+      <button type="button" class="btn btn-default">Shit</button>
+      <button type="button" class="btn btn-default" onclick="clone()">Clone</button>
+      <button type="button" class="btn btn-default" onclick="listRepos()">List Repos</button>
     </div>
     <div class="con_code">
       <div class="treeView">
@@ -28,12 +43,11 @@
       <div id="editor"></div>
       <div class="editor_option">
         Please select:
-          <select id="theme" onchange="loadtheme()">
+        <select id="theme" onchange="loadtheme()">
           </select>
-          <select id="language" onchange="loadtheme()"></select>
+        <select id="language" onchange="loadtheme()"></select>
       </div>
     </div>
-
   </div>
   <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
   <script>
@@ -57,7 +71,6 @@
     }
   </script>
   <script src="/javascripts/request.js"></script>
-
 </body>
 
 </html>
