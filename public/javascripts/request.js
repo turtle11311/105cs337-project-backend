@@ -1,26 +1,13 @@
-﻿var test;
-function op() {
-  let method = $('input#reqmethod')[0].value;
-  let url = $('input#requrl')[0].value;
-  let data = $('textarea#reqdata')[0].value;
-  $.ajax({
-    url: url,
-    method: method,
-    contentType: 'application/json',
-    data: data,
-    dataType: 'json'
-  });
-}
-
+﻿
 function init() {
   bootbox.prompt('Repository Name', (res) => {
-    repo = res;
+    let r = undefined;
     $.ajax({
       method: 'POST',
       url: `/apis/git/init/${res}`,
       contentType: 'application/json',
       data: JSON.stringify({}),
-      dataType: 'json',
+      dataType: 'json'
     });
   });
 }
@@ -38,7 +25,7 @@ function clone() {
       data: JSON.stringify({
         url: url
       }),
-      dataType: 'json',
+      dataType: 'json'
     });
   });
   bootbox.prompt('Repository Name', (res) => {
@@ -48,7 +35,6 @@ function clone() {
 
 function save() {
   var content = ace.edit('editor').getValue();
-  console.log(content);
   $.ajax({
     method: 'PUT',
     url: `/apis/fs/${repo}/${nowFile}`,
@@ -73,16 +59,35 @@ function remove() {
   });
 }
 
+function commit() {
+  var selNodes = $("#tree").fancytree("getTree").getSelectedNodes();
+  var fileList = selNodes.map(node => node.key);
+  bootbox.prompt('Commit massage', (res) => {
+    $.ajax({
+      method: 'POST',
+      url: `/apis/git/commit/${repo}`,
+      contentType: 'application/json',
+      data: JSON.stringify({
+        authorname: 'TurtleBee',
+        authoremail: 'turtle11311@gmail.com',
+        massage: res
+      }),
+      dataType: 'json'
+    });
+  });
+
+}
+
 function listRepos() {
   $.ajax({
     method: 'GET',
     url: `/apis/fs/repos`,
     success: (data, status, XHR) => {
       bootbox.prompt({
-        title: "This is a prompt with select!",
+        title: "Select a repository",
         inputType: 'select',
         inputOptions: [{text: 'Choose one...', value: ''}].concat(data.map(o => new Object({text: o, value: o}))),
-        callback: function (result) {
+        callback: (result) => {
           repo = result;
           loadTreeview();
         }
