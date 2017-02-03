@@ -1,0 +1,30 @@
+{
+  "name": "105cs337-project-backend",
+  "description": "A web-editor with git",
+  "main": "index.js",
+  "authors": [
+    "Wong",
+    "Fu-Lian <turtle11311@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "git"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1",
+    "jquery.fancytree": "fancytree#^2.21.0",
+    "bootstrap": "^3.3.7",
+    "normalize-css": "normalize.css#^5.0.0",
+    "bootbox.js": "bootbox#^4.4.0"
+  }
+}
