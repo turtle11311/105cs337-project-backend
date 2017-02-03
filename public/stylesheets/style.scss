@@ -1,4 +1,6 @@
-
+#demofour ace_line[style]:first-child {
+    display: inline !important;
+}
 div.con_code {
   width: 100%;
   overflow: hidden;
@@ -11,7 +13,11 @@ div.function {
   height: 100px;
   float: right;
 }
-
+.myMarker {
+  position:absolute;
+  background:rgba(100,200,100,0.5);
+  z-index:20
+}
 div#editor {
   margin-top: 0px;
   // color: white;
