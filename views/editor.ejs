@@ -20,21 +20,22 @@
   <script src="/javascripts/support-language.js"></script>
   <link type="text/css" rel="stylesheet" href="/stylesheets/style.css">
   <script type="text/javascript">
-    var repo = 'miner_backend';
+    var repo = '';
     var nowFile = '';
   </script>
   <script src="/javascripts/treeview.js"></script>
 </head>
 
-<body onload="loadTreeview()">
+<body>
   <div class="main">
     <div class="function">
       <button type="button" class="btn btn-default" onclick="init()">Init Repository</button>
-      <button type="button" class="btn btn-default" onclick="save()">Save</button>
-      <button type="button" class="btn btn-default" onclick="remove()">Delete</button>
       <button type="button" class="btn btn-default" onclick="commit()">Commit</button>
       <button type="button" class="btn btn-default" onclick="clone()">Clone</button>
       <button type="button" class="btn btn-default" onclick="listRepos()">Change current Repos</button>
+      <button type="button" class="btn btn-default" onclick="addFile()">Add File</button>
+      <button type="button" class="btn btn-default" onclick="save()">Save</button>
+      <button type="button" class="btn btn-default" onclick="remove()">Delete</button>
     </div>
     <div class="con_code">
       <div class="treeView">

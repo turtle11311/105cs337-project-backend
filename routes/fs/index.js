@@ -52,6 +52,16 @@ router.get('/:repo/:filepath([-a-zA-Z0-9_./]+)', (req, res) => {
   });
 });
 
+router.post('/:repo/:filepath([-a-zA-Z0-9_./]+)', (req, res) => {
+  fs.ensureFile(req.fullpath, (err) => {
+    if (err) {
+      res.status(406).send(err);
+      return;
+    }
+    res.send(`Add ${req.params.filepath}`);
+  });
+});
+
 router.delete('/:repo/:filepath([-a-zA-Z0-9_./]+)', (req, res) => {
   fs.remove(req.fullpath, (err) => {
     if (err) {

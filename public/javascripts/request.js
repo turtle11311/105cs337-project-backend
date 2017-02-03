@@ -1,7 +1,6 @@
 ﻿
 function init() {
   bootbox.prompt('Repository Name', (res) => {
-    let r = undefined;
     $.ajax({
       method: 'POST',
       url: `/apis/git/init/${res}`,
@@ -47,13 +46,28 @@ function save() {
 }
 
 function remove() {
-  var selNodes = $("#tree").fancytree("getTree").getSelectedNodes();
+  var selNodes = $('#tree').fancytree('getTree').getSelectedNodes();
   selNodes.forEach((node) => {
     $.ajax({
       method: 'DELETE',
       url: `/apis/fs/${repo}/${node.key}`,
       success: (data, status, XHR) => {
         node.remove();
+      }
+    });
+  });
+}
+
+function addFile() {
+  bootbox.prompt('New file name', (res) => {
+    $.ajax({
+      method: 'POST',
+      url: `/apis/fs/${repo}/${res}`,
+      contentType: 'application/json',
+      data: JSON.stringify({}),
+      dataType: 'json',
+      complete: (XHR, status) => {
+        loadTreeview();
       }
     });
   });
