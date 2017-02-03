@@ -3,6 +3,7 @@ const express = require('express');
 const nodegit = require('nodegit');
 const ch = require('child_process');
 const path = require('path');
+const _ = require('lodash');
 const debug = require('debug')('apis:git');
 
 // middleware for nodegit
@@ -19,14 +20,14 @@ router.post('/init/:initrepo([-a-zA-Z0-9_.]+)', (req, res) => {
   const repoPath = path.join(config.rootDir, 'Repositories', repoName);
 
   nodegit.Repository.init(repoPath, 0)
-  .done(() => {
-    res.send(`Init ${repoName}`);
-  });
+    .done(() => {
+      res.send(`Init ${repoName}`);
+    });
 });
 
 router.post('/cloneto/:reponame([-a-zA-Z0-9_.]+)', (req, res) => {
   nodegit.Clone(req.body.url,
-    path.join(config.rootDir, 'Repositories', req.params.reponame))
+      path.join(config.rootDir, 'Repositories', req.params.reponame))
     .catch((err) => {
       console.error(err);
       res.status(406).send(`${err}`);
@@ -68,3 +69,23 @@ router.get('/diff/:repo([-a-zA-Z0-9_.]+)/:filepath([-a-zA-Z0-9_./]+)', (req, res
 });
 
 module.exports = router;
+
+router.get('/status/:repo', (req, res) => {
+  function status(status) {
+    let words = [];
+    if (status.isNew())         words.push('NEW');
+    if (status.isModified())    words.push('MODIFIED');
+    if (status.isTypechange())  words.push('TYPECHANGE');
+    if (status.isRenamed())     words.push('RENAMED');
+    if (status.isIgnored())     words.push('IGNORED');
+    return words;
+  }
+  debug(req.repo.workdir());
+  req.repo.getStatus()
+  .then((statuses) => {
+    return statuses.map(file => new Object({name: file.path(), status: status(file)}));
+  })
+  .done((statuses) => {
+    res.send(statuses);
+  });
+});
