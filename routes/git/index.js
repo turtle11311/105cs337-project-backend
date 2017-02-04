@@ -62,7 +62,8 @@ router.post('/commit/:repo([-a-zA-Z0-9_.]+)', [newSignature, add, commit]);
 router.get('/diff/:repo([-a-zA-Z0-9_.]+)/:filepath([-a-zA-Z0-9_./]+)', (req, res) => {
   var cmd = `git diff master~ --word-diff -- ${req.params.filepath} | ${path.join(config.rootDir, './bin/DiffLog.exe')} | ${path.join(config.rootDir ,'./bin/ToJson.exe')}`;
   debug(`Cmd: ${cmd}`);
-  var diff = ch.execSync(cmd);
+  var diff = ch.execSync(cmd, { cwd: path.join(config.rootDir, 'Repositories', req.params.repo)});
+  debug('OK');
   diff = diff.toString();
   debug(diff);
   res.send(diff);
